@@ -1,0 +1,151 @@
+// 变量
+@width: 10px;
+@height: @width + 10px;
+
+#header {
+  width: @width;
+  height: @height;
+}
+
+// mixins
+.bordered {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+
+#menu a {
+  color: #111;
+  .bordered();
+}
+
+.post a {
+  color: red;
+  .bordered();
+}
+
+// nesting
+#header {
+  color: black;
+  .navigation {
+    font-size: 12px;
+  }
+  .logo {
+    width: 300px;
+  }
+}
+
+// &
+.item {
+  color: #fff;
+
+  &--active {
+    color: #ccc;
+  }
+}
+
+.wrapper {
+  display: flex;
+  .item {
+    color: #fff;
+
+    &--active {
+      color: #ccc;
+    }
+  }
+}
+
+// @-rule nest and bubbling
+.component {
+  width: 300px;
+  @media (min-width: 768px) {
+    width: 600px;
+    @media (min-resolution: 192dpi) {
+      background-image: url(/img/retina2x.png);
+    }
+  }
+  @media (min-width: 1280px) {
+    width: 800px;
+  }
+}
+
+// 单位可转换时，会将其转换后相加
+@conversion-1: 5cm + 10mm; // 结果为 6cm
+@conversion-2: 2 - 3cm - 5mm; // 结果为 -1.5cm
+
+// 单位不可转换时
+@incompatible-units: 2 + 5px - 3cm; // 结果为 4px
+
+// 运算
+@base: 5%;
+@filler: @base * 2; // result is 10%
+@other: @base + @filler; // result is 15%
+
+@var: 50vh/2;
+.calc {
+  width: calc(50% + (@var - 20px)); // 结果为 calc(50% + (25vh - 20px))
+}
+
+// 转义
+@min768: ~'(min-width: 768px)';
+.element {
+  @media @min768 {
+    font-size: 1.2rem;
+  }
+}
+
+// 函数
+@base: #f04615;
+@width: 0.5;
+
+.class {
+  width: percentage(@width); // returns `50%`
+  color: saturate(@base, 5%);
+  background-color: spin(lighten(@base, 25%), 8);
+}
+
+// 命名空间
+#bundle() {
+  .button {
+    display: block;
+    border: 1px solid black;
+    background-color: grey;
+    &:hover {
+      background-color: white;
+    }
+  }
+  .tab {
+    color: #fff;
+  }
+  .citation {
+    background-color: #ccc;
+  }
+}
+
+#header a {
+  color: orange;
+  #bundle.button(); // 也可以写成 #bundle > .button
+}
+
+#header li {
+  color: orange;
+  #bundle > .button(); // 也可以写成 #bundle > .button
+}
+
+// map
+#colors() {
+  primary: blue;
+  secondary: green;
+}
+
+.button {
+  color: #colors[primary];
+  border: 1px solid #colors[secondary];
+}
+
+/* 多行
+ * 注释 
+*/
+@var: red;
+
+// 单行注释
+@var: white;
