@@ -1,0 +1,45 @@
+a,
+.link {
+  color: #428bca;
+}
+a:hover {
+  color: #3071a9;
+}
+.widget {
+  color: #fff;
+  background: #428bca;
+}
+.banner {
+  font-weight: bold;
+  line-height: 40px;
+  margin: 0 auto;
+}
+body {
+  color: #444;
+  background: url('../img/white-sand.png');
+}
+.widget {
+  color: #0ee;
+  background-color: #999;
+}
+.section .element {
+  color: green;
+}
+.section .element {
+  color: green;
+}
+.lazy-eval {
+  width: 0;
+}
+.class {
+  width: 1;
+}
+.class .brass {
+  width: 3;
+}
+.header {
+  --color: white;
+  color: var(--color);
+  /* 最终 color 将为 black */
+  --color: black;
+}

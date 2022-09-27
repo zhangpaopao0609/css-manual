@@ -1,0 +1,92 @@
+// 变量
+@link-color: #428bca;
+@link-color-hover: darken(@link-color, 10%);
+
+// 用法
+a,
+.link {
+  color: @link-color;
+}
+a:hover {
+  color: @link-color-hover;
+}
+.widget {
+  color: #fff;
+  background: @link-color;
+}
+
+// 变量插值
+// 变量
+@my-selector: banner;
+
+// 用法
+.@{my-selector} {
+  font-weight: bold;
+  line-height: 40px;
+  margin: 0 auto;
+}
+
+// 变量
+@images: '../img';
+
+// 用法
+body {
+  color: #444;
+  background: url('@{images}/white-sand.png');
+}
+
+// 变量
+@variables: './variables';
+
+// 用法
+@import '@{variables}/index.less';
+
+@property: color;
+
+.widget {
+  @{property}: #0ee;
+  background-@{property}: #999;
+}
+
+@primary: green;
+
+.section {
+  @color: @primary;
+
+  .element {
+    color: @color;
+  }
+}
+
+.section {
+  @color: primary;
+
+  .element {
+    color: @@color;
+  }
+}
+
+.lazy-eval {
+  width: @var;
+  @a: 9%;
+}
+
+@var: @a;
+@a: 100%;
+
+@var: 0;
+.class {
+  @var: 1;
+  .brass {
+    @var: 2;
+    width: @var;
+    @var: 3;
+  }
+  width: @var;
+}
+
+.header {
+  --color: white;
+  color: var(--color); /* 最终 color 将为 black */
+  --color: black;
+}

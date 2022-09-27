@@ -75,7 +75,10 @@ function guideSidebar() {
     {
       text: 'less',
       collapsible: true,
-      items: [{ text: '算法', link: '/guide/less/' }],
+      items: [
+        { text: '概览', link: '/guide/less/01-overview' },
+        { text: '变量', link: '/guide/less/02-variables.md' },
+      ],
     },
   ];
 }
