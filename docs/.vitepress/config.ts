@@ -78,6 +78,7 @@ function guideSidebar() {
       items: [
         { text: '概览', link: '/guide/less/01-overview' },
         { text: '变量', link: '/guide/less/02-variables.md' },
+        { text: '父选择器', link: '/guide/less/03-parent-selectors.md' },
       ],
     },
   ];
