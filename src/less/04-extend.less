@@ -1,0 +1,275 @@
+nav ul {
+  &:extend(.inline);
+  background: blue;
+}
+
+.inline {
+  color: red;
+}
+
+// 方式 1：直接附加在选择器上
+.a:extend(.b) {
+  color: red;
+}
+
+// 方式 2：在规则集中使用
+.a {
+  &:extend(.b);
+  color: red;
+}
+
+// 上面两种方式效果完全一致
+.c:extend(.d all) {
+  // 扩展“.d”的所有实例，例如“.x.d”或“.d.x”
+  color: red;
+}
+.c:extend(.d) {
+  // 仅扩展选择器输出为“.d”的实例
+  color: red;
+}
+
+.e:extend(.f) {
+  color: red;
+}
+.e:extend(.g) {
+  color: red;
+}
+
+// 和上面两个得到的结果完全一致
+.e:extend(.f, .g) {
+  color: red;
+}
+
+// 附加到选择器
+.bag {
+  border: 1px solid;
+}
+
+.bucket {
+  margin: 10px;
+}
+
+.show {
+  display: block;
+}
+
+.big-division:extend(.bag),
+.big-bag:extend(.bag, .show),
+.big-bucket:extend(.bucket):extend(.show) {
+  color: red;
+}
+
+.ru {
+  top: 10;
+}
+
+pre:hover,
+.some-class {
+  &:extend(.ru);
+  left: 20;
+}
+
+pre:hover:extend(.ru),
+.some-class:extend(.ru) {
+  left: 20;
+}
+
+.bucket {
+  tr {
+    // 嵌套的选择器
+    color: blue;
+  }
+}
+.some-class:extend(.bucket tr) {
+  border: 1px;
+}
+
+.bucket {
+  tr & {
+    color: blue;
+  }
+}
+.some-class:extend(tr .bucket) {
+  border: 1px;
+}
+
+.a.class,
+.class.a,
+.class > .a {
+  color: blue;
+}
+
+// 匹配不到任何选择器
+.test:extend(.class) {
+  border: 1px;
+}
+
+*.class {
+  color: blue;
+}
+
+// 匹配不到任何选择器
+.noStar:extend(.class) {
+  border: 1px;
+}
+
+link:hover:visited {
+  color: blue;
+}
+
+// 匹配不到任何选择器
+.selector:extend(link:visited:hover) {
+  border: 1px;
+}
+
+[title='identifier'] {
+  color: blue;
+}
+[title='identifier'] {
+  color: blue;
+}
+[title='identifier'] {
+  color: blue;
+}
+
+.noQuote:extend([title='identifier']) {
+  border: 1px;
+}
+.singleQuote:extend([title='identifier']) {
+  border: 1px;
+}
+.doubleQuote:extend([title='identifier']) {
+  border: 1px;
+}
+
+a.b.test,
+.test.c {
+  color: orange;
+}
+.test {
+  &:hover {
+    color: green;
+  }
+}
+
+.replacement:extend(.test all) {
+  border: 1px;
+}
+
+@variable: .bucket;
+@{variable} {
+  color: blue;
+}
+// 匹配不到任何选择器
+.some-class:extend(.bucket) {
+  border: 1px;
+}
+
+.bucket {
+  color: blue;
+}
+
+@variable: .bucket;
+// 匹配不到任何选择器
+.some-class:extend(@{variable}) {
+  border: 1px;
+}
+
+@sel: .sel;
+
+.varib {
+  color: blue;
+}
+
+@{sel}:extend(.varib) {
+  left: 1;
+}
+
+@media print {
+  // 成功匹配
+  .screenClass:extend(.selector) {
+    left: 1;
+  }
+  // 同层的选择器，匹配
+  .selector {
+    color: black;
+  }
+}
+// 规则集在顶层，内层 extend 会忽略
+.selector {
+  color: red;
+}
+
+@media screen {
+  // 规则集在另一 media 中，仅会被当前 media 中的 extend 匹配
+  .selector {
+    color: blue;
+  }
+}
+
+@media screen {
+  // 匹配不到任何选择器
+  .screenClass:extend(.selector) {
+    left: 1;
+  }
+  @media (min-width: 1023px) {
+    // 选择器在嵌套的 media 中，无法匹配
+    .selector {
+      color: blue;
+    }
+  }
+}
+
+@media screen {
+  .selector-t {
+    color: blue;
+  }
+  @media (min-width: 1023px) {
+    .selector-t {
+      color: blue;
+    }
+  }
+}
+
+// 顶层的 extend 会去匹配所有层级的选择器
+.topLevel:extend(.selector-t) {
+  left: 1;
+}
+
+.alert-info,
+.widget {
+  left: 1;
+}
+
+.alert:extend(.alert-info, .widget) {
+  top: 2;
+}
+
+.my-inline-block() {
+  display: inline-block;
+  font-size: 0;
+}
+.thing1 {
+  .my-inline-block;
+}
+.thing2 {
+  .my-inline-block;
+}
+
+.my-inline-block {
+  display: inline-block;
+  font-size: 0;
+}
+.thing1 {
+  &:extend(.my-inline-block);
+}
+.thing2 {
+  &:extend(.my-inline-block);
+}
+
+li.list > a {
+  line-height: 20px;
+}
+button.list-style {
+  &:extend(li.list > a);
+}
