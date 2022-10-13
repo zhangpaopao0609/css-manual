@@ -1,0 +1,15 @@
+.mixin() {
+  box-shadow+: inset 0 0 10px #555;
+}
+.myclass {
+  .mixin();
+  box-shadow+: 0 0 20px black;
+}
+
+.mixin-1() {
+  transform+_: scale(2);
+}
+.myclass-1 {
+  .mixin-1();
+  transform+_: rotate(15deg);
+}
