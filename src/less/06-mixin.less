@@ -106,39 +106,39 @@ header {
   .border-radius();
 }
 
-.mixin-o() {
-  color-0: #fff;
-}
-.mixin-o(@color) {
-  color-1: @color;
-}
-.mixin-o(@color, @padding: 2) {
-  color-2: @color;
-  padding-2: @padding;
-}
-.mixin-o(@color, @padding, @margin: 2) {
-  color-3: @color;
-  padding-3: @padding;
-  margin: @margin @margin @margin @margin;
-}
-.some-0 {
-  .mixin-o();
-}
-.some-1 {
-  .mixin-o(#008000);
-}
+// .mixin-o() {
+//   color-0: #fff;
+// }
+// .mixin-o(@color) {
+//   color-1: @color;
+// }
+// .mixin-o(@color, @padding: 2) {
+//   color-2: @color;
+//   padding-2: @padding;
+// }
+// .mixin-o(@color, @padding, @margin: 2) {
+//   color-3: @color;
+//   padding-3: @padding;
+//   margin: @margin @margin @margin @margin;
+// }
+// .some-0 {
+//   .mixin-o();
+// }
+// .some-1 {
+//   .mixin-o(#008000);
+// }
 
 .mixin(@color: black; @margin: 10px; @padding: 20px) {
   color: @color;
   margin: @margin;
   padding: @padding;
 }
-.class1 {
-  // .mixin(@margin: 20px; @color: #33acfe);
-}
-.class2 {
-  // .mixin(#efca44; @padding: 40px);
-}
+// .class1 {
+//   // .mixin(@margin: 20px; @color: #33acfe);
+// }
+// .class2 {
+//   // .mixin(#efca44; @padding: 40px);
+// }
 
 .box-shadow(@x: 0, @y: 0, @blur: 1px, @color: #000) {
   -webkit-box-shadow: @arguments;
