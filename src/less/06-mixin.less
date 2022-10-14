@@ -1,0 +1,207 @@
+.a,
+#b {
+  color: red;
+}
+.mixin-class {
+  .a();
+}
+.mixin-id {
+  #b();
+}
+
+.my-mixin {
+  color: black;
+}
+.my-other-mixin() {
+  background: white;
+}
+.class {
+  .my-mixin();
+  .my-other-mixin();
+}
+
+.my-hover-mixin() {
+  &:hover {
+    border: 1px solid red;
+  }
+}
+button {
+  .my-hover-mixin();
+}
+
+#my-library {
+  .my-mixin() {
+    color: black;
+  }
+}
+// 使用
+.class {
+  #my-library.my-mixin();
+}
+
+#outer() {
+  #inner {
+    color: red;
+  }
+}
+
+.c {
+  #outer#inner();
+}
+
+@mode: huge;
+
+#A when (@mode = huge) {
+  .mixin() {
+    color: red;
+  }
+}
+
+#B when (@mode = mini) {
+  .mixin() {
+    border: 1px;
+  }
+}
+
+.my {
+  #A.mixin();
+  // #B.mixin(); // #B.mixin is undefined
+}
+
+#C {
+  .mixin() when (@mode = mini) {
+    top: 1;
+  }
+}
+
+.me {
+  left: 2;
+  #C.mixin();
+}
+
+.foo (@bg: #f5f5f5; @color: #900) {
+  background: @bg;
+  color: @color;
+}
+.unimportant {
+  .foo();
+}
+.important {
+  .foo() !important;
+}
+
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+#header {
+  .border-radius(4px);
+}
+.button {
+  .border-radius(6px);
+}
+header {
+  .border-radius();
+}
+
+.mixin-o() {
+  color-0: #fff;
+}
+.mixin-o(@color) {
+  color-1: @color;
+}
+.mixin-o(@color, @padding: 2) {
+  color-2: @color;
+  padding-2: @padding;
+}
+.mixin-o(@color, @padding, @margin: 2) {
+  color-3: @color;
+  padding-3: @padding;
+  margin: @margin @margin @margin @margin;
+}
+.some-0 {
+  .mixin-o();
+}
+.some-1 {
+  .mixin-o(#008000);
+}
+
+.mixin(@color: black; @margin: 10px; @padding: 20px) {
+  color: @color;
+  margin: @margin;
+  padding: @padding;
+}
+.class1 {
+  // .mixin(@margin: 20px; @color: #33acfe);
+}
+.class2 {
+  // .mixin(#efca44; @padding: 40px);
+}
+
+.box-shadow(@x: 0, @y: 0, @blur: 1px, @color: #000) {
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+.big-block {
+  .box-shadow(2px, 5px);
+}
+
+.mixin(...) {
+} // 可接收任意个数参数
+.mixin(@a: 1, ...) {
+}
+.mixin(@a, ...) {
+}
+
+.mixin(@a, @rest...) {
+  // @rest 变量包含除 @a 以外的参数
+  // @arguments 变量包含所有参数
+}
+
+.class-2 {
+  color: darken(#888, 10%);
+  display: block;
+}
+
+.average(@x, @y) {
+  @result: ((@x + @y) / 2);
+}
+
+div {
+  // 调用 mixin 然后通过属性名 `@result` 获取对应的值
+  padding: .average(16px, 50px) [ @result];
+}
+
+.average-2(@x, @y) {
+  @result-1: ((@x + @y) / 2);
+  @result-2: ((@x + @y) / 3);
+}
+
+.div-2 {
+  padding: .average-2(16px, 50px) [];
+}
+
+.loop(@counter) when (@counter > 0) {
+  .loop((@counter - 1));
+  width: (10px * @counter);
+}
+
+div {
+  .loop(5);
+}
+
+.generate-columns(4);
+
+.generate-columns(@n, @i: 1) when (@i =< @n) {
+  .column-@{i} {
+    width: (@i * 100% / @n);
+  }
+  .generate-columns(@n, (@i + 1));
+}
+
+.mixin(@a) when (@a > 10) , (@a < -10) {
+  clear: both;
+}
