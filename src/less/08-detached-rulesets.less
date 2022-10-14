@@ -1,0 +1,75 @@
+// 规则集赋值给变量
+@detached-ruleset: {
+  background: red;
+}; // 3.5 以后分号可选
+
+// 使用
+.top {
+  @detached-ruleset();
+}
+
+.desktop-and-old-ie(@rules) {
+  @media screen and (min-width: 1200px) {
+    @rules();
+  }
+  html.lt-ie9 & {
+    @rules();
+  }
+}
+
+header {
+  background-color: blue;
+
+  .desktop-and-old-ie({
+    background-color: red;
+  });
+}
+
+// 变量对应的规则集中包含 mixin
+@detached-ruleset: {
+  .mixin() {
+    color: blue;
+  }
+};
+
+// 调用后，可以使用其中的 mixin
+.caller {
+  @detached-ruleset();
+  .mixin();
+}
+
+@detached-ruleset-1: {
+  @color: blue;
+};
+
+.caller {
+  @detached-ruleset-1();
+  // color: @color; // variable @color is undefined
+}
+
+@detached-ruleset-2: {
+  left: @caller-variable; // variable is undefined
+  .caller-mixin(); // mixin is undefined
+};
+
+selector {
+  @detached-ruleset-2();
+
+  // 定义的变量和 mixin 需要在变量规则集内部
+  @caller-variable: 1;
+  .caller-mixin() {
+    top: 2;
+  }
+}
+
+@color: red;
+@detached-ruleset-3: {
+  // will use global variable, because it is accessible
+  // from detached-ruleset definition
+  color: @color;
+};
+
+selector {
+  @detached-ruleset-3();
+  @color: white; // variable defined in caller - will be ignored
+}
